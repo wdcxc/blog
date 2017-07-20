@@ -1,0 +1,2 @@
+# blog
+wdcxc's blog :)
