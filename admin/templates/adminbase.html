@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="ui container" id="body">
+    <div class="ui grid">
+        <div class="four wide column">
+            <div class="ui sticky">
+            <div class="ui vertical pointing menu">
+                <div class="header item">
+                    wdcxc's blog 后台管理
+                </div>
+                <a class="active teal item">
+                    <i class="home icon"></i> 总览
+                </a>
+                <a class="item">
+                    <i class="write icon"></i> 文章管理
+                </a> 
+                <a class="item">
+                    <i class="comments icon"></i> 评论管理
+                </a>
+                <a class="item">
+                    <i class="power icon"></i> 退出
+                </a>
+            </div>
+            </div>
+        </div>
+        <div class="twelve wide column">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>$(".ui.sticky").sticky({context:'#body'})</script>
+{% endblock %}
+

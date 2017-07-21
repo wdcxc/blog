@@ -1,5 +1,27 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}首页{% endblock %}
 
 {% block body %}
-<h1>hello!!!</h1>
+<div class="ui attached stackable menu">
+    <div class="ui container">
+        <div class="header item">
+            wdcxc's blog
+        </div>
+        <a class="item">
+            <i class="home icon"></i> 首页
+        </a>
+        <a class="item">
+            <i class="student icon"></i> 学习笔记
+        </a>
+        <a class="item">
+            <i class="coffee icon"></i> 生活记录
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/app/index.js' %}"></script>
 {% endblock %}
