@@ -8,24 +8,30 @@
             <div class="ui sticky">
             <div class="ui vertical pointing menu">
                 <div class="header item">
-                    wdcxc's blog 后台管理
+                    wdcxc's blog 管理后台
                 </div>
-                <a class="active teal item">
+                <a class="{% ifequal path.module 'overview' %}active teal{% endifequal %} item" href="/admin/overview/index">
                     <i class="home icon"></i> 总览
                 </a>
-                <a class="item">
+                <a class="{% ifequal path.module 'article' %}active teal{% endifequal %} item" href="/admin/article/index">
                     <i class="write icon"></i> 文章管理
                 </a> 
-                <a class="item">
+                <a class="{% ifequal path.module 'comment' %}active teal{% endifequal %} item">
                     <i class="comments icon"></i> 评论管理
                 </a>
-                <a class="item">
+                <a class="{% ifequal path.module 'exit' %}active teal{% endifequal %} item">
                     <i class="power icon"></i> 退出
                 </a>
             </div>
             </div>
         </div>
         <div class="twelve wide column">
+            <div class="ui large breadcrumb">
+                <div class="section">{{ path.module }}</div>
+                <i class="right angle icon divider"></i>
+                <div class="active section">{{ path.action }}</div>
+            </div>
+            <div class="ui divider"></div>
             {% block content %}
             {% endblock %}
         </div>

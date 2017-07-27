@@ -1,0 +1,17 @@
+{% extends 'adminbase.html' %}
+{% load static %}
+
+{% block css %}
+<link type="text/css" rel="stylesheet" href="{% static 'libs/webpack_bundles/mavon-editor/css/mavon_editor.css' %}"/>
+{% endblock %}
+
+{% block content %}
+<div id="editor">
+    <mavon-editor v-model="value"/>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'libs/webpack_bundles/mavon-editor/mavon_editor.js' %}"></script>
+<script src="{% static 'js/admin/article/add.js' %}"></script>
+{% endblock %}
