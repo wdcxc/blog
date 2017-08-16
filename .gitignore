@@ -1,1 +1,7 @@
+<<<<<<< HEAD
 
+=======
+static/libs/webpack/node_modules/*
+*.pyc
+*.swp
+>>>>>>> 935e8709288a105e9683d0ad21587d2d583eb773
