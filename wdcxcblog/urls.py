@@ -21,5 +21,6 @@ urlpatterns = [
     # url(r'^admin/', admin.site.urls),
     url(r'^app/', include('app.urls')),
     url(r'^admin/',include('admin.urls')),
+    url(r'^jdcrawler/',include('jdcrawler.urls')),
 ]
 

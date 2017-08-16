@@ -7,11 +7,24 @@
 
 {% block content %}
 <div id="editor">
-    <mavon-editor v-model="value"/>
+    <mavon-editor v-model="value" @save="$save"/>
 </div>
 {% endblock %}
 
 {% block js %}
 <script src="{% static 'libs/webpack_bundles/mavon-editor/mavon_editor.js' %}"></script>
 <script src="{% static 'js/admin/article/add.js' %}"></script>
+<script>
+new Vue({
+    'el': '#editor',
+    data:{
+        value: ''
+    },
+    methods:{
+        $save(value,render){
+            console.log(value)
+        } 
+    }
+})
+</script>
 {% endblock %}
