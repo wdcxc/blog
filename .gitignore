@@ -1,1 +1,3 @@
 static/libs/webpack/node_modules/*
+*.pyc
+*.swp
