@@ -7,7 +7,7 @@
 
 {% block content %}
 <div id="editor">
-    <mavon-editor v-model="value"/>
+    <mavon-editor v-model="value" @save="$save"/>
 </div>
 {% endblock %}
 
