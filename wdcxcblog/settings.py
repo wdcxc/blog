@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '116.56.140.85',
+    'www.ocxco.xyz',
 ]
 
 
