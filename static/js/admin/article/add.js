@@ -1,11 +1,11 @@
 new Vue({
-    "el":"#editor",
-    "data":{
-        "value":"",
+    el: '#editor',
+    data:{
+        value: ''
     },
-    "methods":{
-        $save:function(value,render){
+    methods:{
+        $save(value,render){
             alert(value);
-        }
+        } 
     }
 });
