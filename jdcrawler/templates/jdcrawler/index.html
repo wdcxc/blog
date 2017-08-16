@@ -1,0 +1,36 @@
+{% extends 'jdcrawler/base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="ui stackable grid container"> 
+    <div class="ui divider"></div>
+    <div class="row">
+        <div class="ui icon input">
+            <input type="text" placeholder="输入商品关键字">
+            <i class="inverted circular search link icon"></i>
+        </div>
+    </div> <!-- row -->
+    <div class="ui four cards row">
+        <div class="card">
+            <div class="image">
+                <img src="https://img11.360buyimg.com/n7/jfs/t6043/274/4075832487/197911/429cc6c6/5962f4d3N17282b0c.jpg">
+            </div>
+            <div class="content">
+                <div class="header">充电宝</div>
+                <div class="meta">
+                    <span class="left floated">666元</span>
+                    <span class="right floated">店家</span>
+                </div>
+                <div class="description">
+                    很棒棒的充电宝
+                </div>
+            </div>
+            <div class="extra content">
+                <div class="ui two buttons">
+                    <div class="ui basic teal button">加入</div>
+                </div>
+            </div>
+        </div> <!-- card -->
+    </div> <!-- cards -->
+</div>
+{% endblock %}
