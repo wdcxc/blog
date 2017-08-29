@@ -1,0 +1,30 @@
+<div class="ui sticky">
+    <div class="ui vertical pointing menu">
+        <div class="header item">
+            wdcxc's blog 管理后台
+        </div>
+        <a class="{% ifequal path.module 'overview' %}active teal{% endifequal %} item" href="/admin/overview/index">
+            <i class="home icon"></i> 总览
+        </a>
+        <a class="{% ifequal path.module 'article' %}active teal{% endifequal %} item" href="/admin/article/index">
+            <i class="write icon"></i> 文章管理
+        </a> 
+        <a class="{% ifequal path.module 'category' %}active teal{% endifequal %} item" href="/admin/category/index">
+            <i class="list icon"></i> 分类管理
+        </a>
+        <a class="{% ifequal path.module 'tag' %}active teal{% endifequal %} item" href="/admin/tag/index">
+            <i class="tags icon"></i> 标签管理
+        </a>
+        <!--
+        <a class="{% ifequal path.module 'date_archive' %}active teal{% endifequal %} item" href="/admin/date_archive/index">
+            <i class="calendar icon"></i> 日期归档管理
+        </a>
+        -->
+        <a class="{% ifequal path.module 'comment' %}active teal{% endifequal %} item">
+            <i class="comments icon"></i> 评论管理
+        </a>
+        <a class="{% ifequal path.module 'exit' %}active teal{% endifequal %} item" href="/admin/admin/logout">
+            <i class="power icon"></i> 退出
+        </a>
+    </div>
+</div>

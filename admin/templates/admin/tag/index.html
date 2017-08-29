@@ -1,0 +1,50 @@
+{% extends 'admin/adminbase.html' %}
+{% load static %}
+
+{% block rightside %}
+<table class="ui celled striped compact stackable table" id="tags_table">
+    <thead>
+        <tr>
+            <th>标签名</th>
+            <th>添加时间</th>
+            <th>关联文章</th>
+            <th>是否显示</th>
+            <th>显示等级(越大越前)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tag in tags %}
+        <tr>
+            <td><span class="ui teal tag label">{{ tag.name }}</span></td>
+            <td>{{ tag.add_time }}</td>
+            <td>{{ tag.articles.count }}</td>
+            <td><div class="ui slider checkbox"><input type="checkbox" {% if tag.show %}checked{% endif %} @click="changeShow({{ tag.id }},$event)"><label>是</label></div></td>
+            <td>
+                <button class="circular ui teal icon small button" @click="increaseGrade({{ tag.id }},'increase')"><i class="plus icon"></i></button>
+                <label class="ui label">{{ tag.grade }}</label>
+                <button class="circular ui orange icon small button" @click="decreaseGrade({{ tag.id }},'decrease')"><i class="minus icon"></i></button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="5">
+                <div class="ui right floated paginator menu">
+                    {% if tags.has_previous %}
+                    <a class="icon item" href="?page={{ tags.previous_page_number }}"><i class="left chevron icon"></i></a>
+                    {% endif %}
+                    <span class="item">{{ tags.number }} / {{ tags.paginator.num_pages }}</span>
+                    {% if tags.has_next %}
+                    <a class="icon item" href="?page={{ tags.next_page_number }}"><i class="right chevron icon"></i></a>
+                    {% endif %}
+                </div>
+            </th>
+        </tr> 
+    </tfoot>
+</table>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/admin/tag/index.js' %}"></script>
+{% endblock %}

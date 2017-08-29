@@ -1,0 +1,46 @@
+{% extends 'app/appbase.html' %}
+{% load static %}
+
+{% block leftside %}
+<div class="ui raised segment items">
+    <div class="item">
+        <div class="content">
+            <div class="header">
+                <h1 class="ui header">
+                    {{ article.title }}
+                </h1>
+            </div>
+            <div class="meta">
+                <span class=""><i class="write icon"></i>{{ article.author }}</span>
+                <span class=""><i class="calendar icon"></i>{{ article.add_time }}</span>
+                <span class="right floated">阅读次数：{{ article.read_num }}</span>
+            </div>
+            <div class="description">
+                <span>分类：</span>
+                {% for category in article.show_categories %}
+                <span class="ui teal basic label">{{ category.name }}</span>
+                {% endfor %}
+
+                {% if article.show_tags %}
+                    {% for tag in article.show_tags%}
+                    <span class="ui teal tag label right floated">{{ tag.name }}</span>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="ui divider"></div>
+
+                <div class="content" id="content">{{ article.content }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'libs/markdown-it.min.js' %}"></script>
+<script>
+var md = window.markdownit({breaks:true,html:true,linkify:true,typographer:true});
+var content = md.render($("#content").html());
+$("#content").html(content);
+</script>
+{% endblock %}

@@ -18,4 +18,8 @@ import app.views as app
 
 urlpatterns = [
     url(r'^index$',app.index,name='index'),
+    url(r'^article$',app.article,name='article'),
+    url(r'^tag$',app.tag,name='tag'),
+    url(r'^category$',app.category,name='category'),
+    url(r'^date_archive$',app.date_archive,name='date_archive'),
 ]

@@ -1,0 +1,40 @@
+{% extends 'admin/adminbase.html' %}
+{% load static %}
+
+{% block rightside %}
+<div class="ui three stackable cards">
+    <div class="ui raised card">
+        <div class="content">
+            <div class="header">文章总览</div>
+            <div class="description">
+                <p>文章总数：{{ articles.count }}</p>
+                <p>公开文章数：{{ articles.open_articles_num }}</p>
+                <p>最新文章：&lt&lt{{ articles.latest_article.title }}&gt&gt</p>
+                <p>最火文章：&lt&lt{{ articles.hotest_article.title }}&gt&gt</p>
+            </div> 
+        </div>
+    </div>
+    <div class="ui raised card">
+        <div class="content">
+            <div class="header">类别总览</div>
+            <div class="description">
+                <p>类别总数：{{ categories.count }}</p>
+                <p>显示类别数：{{ categories.show_categories_num }}</p>
+                <p>关联最多文章类别：{{ categories.most_articles_category.name }}</p>
+                <p>最新类别：{{ categories.latest_category.name }}
+            </div> 
+        </div>
+    </div>
+    <div class="ui raised card">
+        <div class="content">
+            <div class="header">标签总览</div>
+            <div class="description">
+                <p>标签总数：{{ tags.count }}</p>
+                <p>显示标签数：{{ tags.show_tags_num }}</p>
+                <p>关联最多文章标签：{{ tags.most_articles_tag.name }}</p>
+                <p>最新标签：{{ tags.latest_tag.name }}
+            </div> 
+        </div>
+    </div>
+</div>
+{% endblock %}

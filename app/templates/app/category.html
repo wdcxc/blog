@@ -4,7 +4,7 @@
 {% block title %}首页{% endblock %}
 
 {% block leftside %}
-<div class="ui one stackable raised cards" id="articles_cards">
+<div class="ui one stackable raised cards">
     {% for article in articles %}
     <div class="card">
         <a class="content" href="/app/article?id={{ article.id }}">
@@ -35,16 +35,6 @@
         </div>
     </div>
     {% endfor %}
-</div>
-<div class="ui divider"></div>
-<div class="ui right floated pagination menu">
-    {% if articles.has_previous %}
-    <a class="icon item" href="?page={{ articles.previous_page_number }}"><i class="left chevron icon"></i></a>
-    {% endif %}
-    <span class="item">{{ articles.number }} / {{ articles.paginator.num_pages }}</span>
-    {% if articles.has_next %}
-    <a class="icon item" href="?page={{ articles.next_page_number }}"><i class="right chevron icon"></i></a>
-    {% endif %}
 </div>
 {% endblock %}
 

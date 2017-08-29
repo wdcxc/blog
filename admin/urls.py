@@ -16,6 +16,7 @@ Including another URLconf
 
 from django.conf.urls import url
 from admin.views.base import BaseView
+import admin.views.admin as AdminView
 
 # 总览
 urlpatterns = [

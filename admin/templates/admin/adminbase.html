@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="ui container" id="body">
+    <div class="ui grid">
+        <div class="four wide column">
+        {% include 'admin/leftside.html' %}
+        </div>
+        <div class="twelve wide column">
+            <div class="ui large breadcrumb">
+                <div class="section">{{ path.module }}</div>
+                <i class="right angle icon divider"></i>
+                <div class="active section">{{ path.action }}</div>
+            </div>
+            <div class="ui divider"></div>
+            {% block rightside %}{% endblock %}
+        </div>
+    </div>
+</div>
+<script src="{% static 'libs/axios.min.js' %}"></script>
+<script src="{% static 'libs/qs.js' %}"></script>
+<script src="{% static 'libs/js.cookie.js' %}"></script>
+{% endblock %}
+<script>$(".ui.sticky").sticky({context:'#body'})</script>
+
+

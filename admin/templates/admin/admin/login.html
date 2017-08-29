@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="ui divider"></div>
+<div class="ui three column center aligned grid container">
+    <div class="column">
+        <div class="ui raised segment">
+            <h2 class="ui teal header">wdcxcblog's amdin</h2>
+            {% if error %}
+            <div class="ui small error message">{{ error }}</div>
+            {% endif %}
+            <form class="ui large form" method="post" action="/admin/admin/login">
+                {% csrf_token %}
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" name="user" placeholder="登录账号"/>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password" name="password" placeholder="账号密码"/>
+                    </div>
+                </div>
+                <button class="ui fluid large teal submit button">Login</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

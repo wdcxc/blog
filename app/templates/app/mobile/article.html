@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="ui container">
+    <div class="ui attached stackable menu">
+        <div class="header item">
+            wdcxc's blog
+        </div>
+        <a class="item" href="/app/index">
+            <i class="home icon"></i> 首页
+        </a>
+        {% for category in categories_in_header %}
+        <a class="item" href="/app/category?id={{ category.id }}">
+            <i class="coffee icon"></i>{{ category.name }}
+        </a>
+        {% endfor %}
+    </div>
+    <div class="ui raised segment items">
+        <div class="item">
+            <div class="content">
+                <div class="header">
+                    <h1 class="ui header">
+                        {{ article.title }}
+                    </h1>
+                </div>
+                <div class="meta">
+                    <span class=""><i class="write icon"></i>{{ article.author }}</span>
+                    <span class="right floated"><i class="calendar icon"></i>{{ article.add_time }}</span>
+                </div>
+                <div class="extra content">
+                    分类：
+                    {% for category in article.show_categories %}
+                    <span>
+                        <a class="ui {% ifequal category.id selected_category.id %}orange{% else %}teal{% endifequal %} basic label" href="/app/category?id={{ category.id }}">{{ category.name }}</a>
+                    </span>
+                    {% endfor %}
+                    <span class="right floated">
+                        阅读次数：{{ article.read_num }}
+                    </span>
+                </div>
+                <div class="ui divider"></div>
+                <div class="description">
+                    <div class="content" id="content">{{ article.content }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'libs/markdown-it.min.js' %}"></script>
+<script>
+var md = window.markdownit({breaks:true,html:true,linkify:true,typographer:true});
+var content = md.render($("#content").html());
+$("#content").html(content);
+</script>
+{% endblock %}

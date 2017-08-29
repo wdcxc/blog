@@ -1,0 +1,52 @@
+{% extends 'admin/adminbase.html' %}
+{% load static %}
+
+{% block rightside %}
+<table class="ui celled striped compact stackable table" id="categories_table">
+    <thead>
+        <tr>
+            <th>分类</th>
+            <th>添加时间</th>
+            <th>关联文章</th>
+            <th>是否显示</th>
+            <th>显示等级(越大越前)</th>
+            <th>是否添加到首页头部</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for category in categories %}
+        <tr>
+            <td><span class="ui teal basic label">{{ category.name }}</span></td>
+            <td>{{ category.add_time }}</td>
+            <td>{{ category.articles.count }}</td>
+            <td><div class="ui slider checkbox"><input type="checkbox" {% if category.show %}checked{% endif %} @click="changeShow({{ category.id }},$event)"><label>是</label></div></td>
+            <td>
+                <button class="circular ui teal icon small button" @click="increaseGrade({{ category.id }},'increase')"><i class="plus icon"></i></button>
+                <label class="ui label">{{ category.grade }}</label>
+                <button class="circular ui orange icon small button" @click="decreaseGrade({{ category.id }},'decrease')"><i class="minus icon"></i></button>
+            </td>
+            <td><div class="ui toggle checkbox"><input type="checkbox" {% if category.show_in_header %}checked{% endif %} @click="changeShowInHeader({{ category.id }},$event)"><label>是</label></div></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="6">
+                <div class="ui right floated paginator menu">
+                    {% if categories.has_previous %}
+                    <a class="icon item" href="?page={{ categories.previous_page_number }}"><i class="left chevron icon"></i></a>
+                    {% endif %}
+                    <span class="item">{{ categories.number }} / {{ categories.paginator.num_pages }}</span>
+                    {% if categories.has_next %}
+                    <a class="icon item" href="?page={{ categories.next_page_number }}"><i class="right chevron icon"></i></a>
+                    {% endif %}
+                </div>
+            </th>
+        </tr> 
+    </tfoot>
+</table>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/admin/category/index.js' %}"></script>
+{% endblock %}

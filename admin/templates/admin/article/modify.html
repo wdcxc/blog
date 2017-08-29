@@ -8,11 +8,14 @@
 {% block rightside %}
 <div id="editor">
     {% csrf_token %}
+    <input type="hidden" id="id" value="{{ article.id }}"/>
+    <input type="hidden" id="content" value="{{ article.content }}"/>
+    <input type="hidden" id="meta" value="{{ article.meta }}"/>
     <mavon-editor v-model="value" @save="$save"/>
 </div>
 {% endblock %}
 
 {% block js %}
 <script src="{% static 'libs/webpack_bundles/mavon-editor/mavon_editor.js' %}"></script>
-<script src="{% static 'js/admin/article/add.js' %}"></script>
+<script src="{% static 'js/admin/article/modify.js' %}"></script>
 {% endblock %}

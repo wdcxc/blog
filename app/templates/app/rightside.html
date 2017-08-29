@@ -1,0 +1,54 @@
+<div class="ui raised one stackable cards">
+    <div class="card">
+        <div class="content">
+            <div class="header">热门阅读</div>
+        </div>
+        <div class="content">
+            <div class="ui divided list">
+                {% for article in hot_articles %}
+                <a class="item" href="/app/article?id={{article.id}}">
+                    <div class="content">
+                        <div class="header">
+                            <span>{{ article.title }}</span>
+                        </div>
+                        <div class="meta">
+                            <span class="">阅读次数：{{ article.read_num }}</span>
+                            <span class="right floated"><i class="calendar icon"></i>{{ article.add_time }}</span>
+                        </div>
+                    </div>
+                </a><!-- item -->
+                {% endfor %}
+            </div><!-- list -->
+        </div>
+    </div>
+    <div class="card">
+        <div class="content">
+            <div class="header">日期归档</div>
+        </div>
+        {% for year in date_archive_years %}
+        <div class="content">
+            <a class="ui basic {% ifequal selected_archive_date.year year.date %}orange{% else %}teal{% endifequal %} label" href="/app/date_archive?year={{ year.date }}">{{ year.date }}年</a>：{% for month in year.next_grades.all %}<a class="ui basic {% ifequal selected_archive_date.month month.date %}orange{% else %}teal{% endifequal %} label" href="/app/date_archive?year={{ year.date }}&month={{ month.date }}">{{ month.date }}月</a>{% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="card">
+        <div class="content">
+            <div class="header">文章分类</div>
+        </div>
+        <div class="content">
+            {% for category in all_categories %}
+            <a class='ui {% ifequal category.id selected_category.id %}orange{% else %}teal{% endifequal %} basic label' href="/app/category?id={{ category.id }}">{{ category.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="card">
+        <div class="content">
+            <div class="header">标签云</div>
+        </div>
+        <div class="content">
+            {% for tag in all_tags %}
+            <a class='ui {% ifequal tag.id selected_tag.id %}orange{% else %}teal{% endifequal %} tag label' href="/app/tag?id={{ tag.id }}">{{ tag.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>

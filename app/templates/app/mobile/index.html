@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}首页{% endblock %}
+
+{% block body %}
+<div class="ui container">
+    <div class="ui attached stackable menu">
+        <div class="header item">
+            wdcxc's blog
+        </div>
+        <a class="item" href="/app/index">
+            <i class="home icon"></i> 首页
+        </a>
+        {% for category in categories_in_header %}
+        <a class="item" href="/app/category?id={{ category.id }}">
+            <i class="coffee icon"></i>{{ category.name }}
+        </a>
+        {% endfor %}
+    </div>
+    <div class="ui raised segment items" id="articles_cards">
+        {% for article in articles %}
+        <div class="item">
+            <a class="content" href="/app/article?id={{ article.id }}">
+                <div class="header">
+                    <h1 class="ui header">{{ article.title }}</h1>
+                </div>
+                <div class="meta">
+                    <span><i class="write icon"></i>{{ article.author }}</span>
+                    <span class="right floated"><i class="calendar icon"></i>{{ article.add_time }}</span>
+                </div>
+            </a>
+            <div class="extra content">
+                分类：
+                {% for category in article.show_categories %}
+                <span>
+                    <a class="ui {% ifequal category.id selected_category.id %}orange{% else %}teal{% endifequal %} basic label" href="/app/category?id={{ category.id }}">{{ category.name }}</a>
+                </span>
+                {% endfor %}
+                <span class="right floated">
+                    阅读次数：{{ article.read_num }}
+                </span>
+            </div>
+        </div> <!-- item -->
+        {% endfor %}
+    </div> <!-- items -->
+    <div class="ui divider"></div>
+    <div class="ui stackable right floated pagination menu">
+        {% if articles.has_previous %}
+        <a class="icon item" href="?page={{ articles.previous_page_number }}"><i class="left chevron icon"></i></a>
+        {% endif %}
+        <span class="item">{{ articles.number }} / {{ articles.paginator.num_pages }}</span>
+        {% if articles.has_next %}
+        <a class="icon item" href="?page={{ articles.next_page_number }}"><i class="right chevron icon"></i></a>
+        {% endif %}
+    </div> <! -- menu -->
+</div> <!-- body -->
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/app/index.js' %}"></script>
+{% endblock %}
