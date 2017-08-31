@@ -13,6 +13,11 @@
     <input type="hidden" id="meta" value="{{ article.meta }}"/>
     <mavon-editor v-model="value" @save="$save"/>
 </div>
+<div class="ui basic modal">
+    <div class="ui icon header">
+        <div class="ui text loader">保存修改 ing ...</div>
+    </div>
+</div>
 {% endblock %}
 
 {% block js %}

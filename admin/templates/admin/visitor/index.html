@@ -1,0 +1,50 @@
+{% extends 'admin/adminbase.html' %}
+{% load static %}
+
+{% block rightside %}
+<table class="ui celled striped compact stackable table" id="visitorsTable">
+    <thead>
+        <tr class="single line">
+            <th>访客名称</th>
+            <th>访客IP</th>
+            <th>添加时间</th>
+            <th>访问记录数</th>
+            <th>最近访问时间</th>
+            <th>最近访问文章</th>
+            <th>是否禁止访问</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for visitor in visitors %}
+        <tr class="single line">
+            <td>{{ visitor.name }}</td>
+            <td>{{ visitor.IP }}</td>
+            <td>{{ visitor.add_time }}</td>
+            <td>{{ visitor.visited_records_num }}</td>
+            <td>{{ visitor.latest_visited_record.visited_time }}</td>
+            <td>{{ visitor.latest_visited_record.article.title }}</td>
+            <td><div class="ui toggle checkbox"><input type="checkbox" {% if visitor.forbidden_visit %}checked{% endif %} @click="changeForbiddenVisit({{ visitor.id }},$event)"><label>是</label></div></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="7">
+                <div class="ui right floated paginator menu">
+                    {% if visitors.has_previous %}
+                    <a class="icon item" href="?page={{ visitors.previous_page_number }}"><i class="left chevron icon"></i></a>
+                    {% endif %}
+                    <span class="item">{{ visitors.number }} / {{ visitors.paginator.num_pages }}</span>
+                    {% if visitors.has_next %}
+                    <a class="icon item" href="?page={{ visitors.next_page_number }}"><i class="right chevron icon"></i></a>
+                    {% endif %}
+                </div>
+            </th>
+        </tr> 
+    </tfoot>
+</table>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/admin/visitor/index.js' %}"></script>
+{% endblock %}

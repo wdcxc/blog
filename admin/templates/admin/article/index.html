@@ -28,68 +28,73 @@
         </div>
         {% endif %}
     </div>
-    <table class="ui celled compact striped table" id="articlesTable">
-        <thead>
-            <tr>
-                <th class="single line">文章id</th>
-                <th>标题</th>
-                <th>发布时间</th>
-                <th>作者</th>
-                <th>类别</th>
-                <th>标签</th>
-                <th>是否公开</th>
-                <th>操作</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for article in articles %}
-            <tr>
-                <td>{{ article.id }}</td>
-                <td>{{ article.title }}</td>
-                <td>{{ article.add_time }}</td>
-                <td>{{ article.author }}</td>
-                <td>
-                    {% for categroy in article.categories.all %}
-                    <span class="ui label">{{ categroy.name }}</span>
-                    {% endfor %}
-                </td>
-                <td>
-                    {% for tag in article.tags.all %}
-                    <span class="ui label">{{ tag.name }}</span>
-                    {% endfor %}
-                </td>
-                <td>
-                    <div class="ui small buttons">
-                        <button class="ui {% if article.open_to_public %}teal{% endif %} button" @click="openToPublic({{ article.id }},1)">是</button>
-                        <div class="or"></div>
-                        <button class="ui {% if not article.open_to_public %}teal{% endif %} button" @click="openToPublic({{ article.id }},0)">否</button>
-                    </div>
-                </td>
-                <td>
-                    <div class="ui small buttons">
-                        <a class="ui teal button" href="/admin/article/modify?id={{ article.id }}">修改</a>
-                        <button class="ui red button" v-on:click="deleteArticle({{ article.id }})">删除</button>
-                    </div>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-        <tfoot>
-            <tr>
-                <th colspan="8">
-                    <div class="ui right floated pagination menu">
-                        {% if articles.has_previous %}
-                        <a class="icon item" @click="previousPage({{ articles.previous_page_number }})"><i class="left chevron icon"></i></a>
-                        {% endif %}
-                        <span class="item">{{ articles.number }} / {{ articles.paginator.num_pages }}</span>
-                        {% if articles.has_next %}
-                        <a class="icon item" @click="nextPage({{ articles.next_page_number }})"><i class="right chevron icon"></i></a>
-                        {% endif %}
-                    </div>
-                </th>
-            </tr> 
-        </tfoot>
-    </table>
+    <div class="row">
+        <table class="ui celled compact striped table" id="articlesTable">
+            <thead>
+                <tr>
+                    <th>标题</th>
+                    <th>发布时间</th>
+                    <th>作者</th>
+                    <th>类别</th>
+                    <th>标签</th>
+                    <th>是否公开</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in articles %}
+                <tr class="single line">
+                    <td>{{ article.title }}</td>
+                    <td>{{ article.add_time }}</td>
+                    <td>{{ article.author }}</td>
+                    <td>
+                        {% for categroy in article.categories.all %}
+                        <span class="ui label">{{ categroy.name }}</span>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for tag in article.tags.all %}
+                        <span class="ui label">{{ tag.name }}</span>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <div class="ui small buttons">
+                            <button class="ui {% if article.open_to_public %}teal{% endif %} button" @click="openToPublic({{ article.id }},1)">是</button>
+                            <div class="or"></div>
+                            <button class="ui {% if not article.open_to_public %}teal{% endif %} button" @click="openToPublic({{ article.id }},0)">否</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="ui small buttons">
+                            <a class="ui teal button" href="/admin/article/modify?id={{ article.id }}">修改</a>
+                            <button class="ui red button" v-on:click="deleteArticle({{ article.id }})">删除</button>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="8">
+                        <div class="ui right floated pagination menu">
+                            {% if articles.has_previous %}
+                            <a class="icon item" @click="previousPage({{ articles.previous_page_number }})"><i class="left chevron icon"></i></a>
+                            {% endif %}
+                            <span class="item">{{ articles.number }} / {{ articles.paginator.num_pages }}</span>
+                            {% if articles.has_next %}
+                            <a class="icon item" @click="nextPage({{ articles.next_page_number }})"><i class="right chevron icon"></i></a>
+                            {% endif %}
+                        </div>
+                    </th>
+                </tr> 
+            </tfoot>
+        </table>
+    </div>
+</div>
+<div class="ui basic modal">
+    <div class="ui header">
+        <div class="ui text loader">后台操作 ing ...</div>
+    </div>
 </div>
 {% endblock %}
 

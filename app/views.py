@@ -1,16 +1,16 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
-from admin.models import ArticleModel,TagModel,CategoryModel,DateArchiveModel
+from admin.models import ArticleModel,TagModel,CategoryModel,DateArchiveModel,VisitorModel,VisitedRecordModel
 from django.forms.models import model_to_dict
 
 def init_context():
     """初始化模板显示变量"""
 
     context = {}
-    context['all_tags'] = TagModel.objects.filter(show=True,article__open_to_public=True).order_by("-grade","-add_time")
-    context['all_categories'] = CategoryModel.objects.filter(show=True,article__open_to_public=True).order_by("-grade","-add_time")
+    context['all_tags'] = TagModel.objects.filter(show=True).order_by("-grade","-add_time")
+    context['all_categories'] = CategoryModel.objects.filter(show=True,).order_by("-grade","-add_time")
     context['hot_articles'] = ArticleModel.objects.filter(open_to_public=True).order_by("-read_num","-add_time")[:5]
-    context['date_archive_years'] = DateArchiveModel.objects.filter(grade=DateArchiveModel.DATE_GRADE_YEAR,article__open_to_public=True).order_by("-date")
+    context['date_archive_years'] = DateArchiveModel.objects.filter(grade=DateArchiveModel.DATE_GRADE_YEAR).order_by("-date")
     context['categories_in_header'] = CategoryModel.objects.filter(show_in_header=True).order_by("-grade","-add_time")
     return context
 
@@ -36,6 +36,8 @@ def article(request):
     article = ArticleModel.objects.get(id=input['id'])
     article.read_num += 1
     article.save()
+    visitor = VisitorModel.objects.get_or_create(IP=request.META['REMOTE_ADDR'])[0]
+    VisitedRecordModel(visitor=visitor,article=article).save()
     context['article'] = articles_append_meta([article])[0]
     if request_from_mobile(request):
         return render(request,'app/mobile/article.html',context)
@@ -106,7 +108,9 @@ def request_from_mobile(request):
     """ 判断请求是不是来自移动端 """
 
     print(request.META['HTTP_USER_AGENT'])
-    mobile_characters = ['mobile','Mobile','iPhone','iPad','AppleWebKit']
+    if 'nsukey' in request.GET:
+        return True
+    mobile_characters = ['mobile','Mobile','iPhone','iPad','MicroMessenger']
     for character in mobile_characters:
         if character in request.META['HTTP_USER_AGENT']:
             return True

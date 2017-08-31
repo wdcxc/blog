@@ -11,6 +11,8 @@ new Vue({
     },
     methods:{
         $save(value,render){
+            $(".ui.modal").modal("show");
+            $(".markdown-body").css("z-index","1");
             axios({
                     method:'post',
                     url:'/admin/article/do_modify',
@@ -20,8 +22,13 @@ new Vue({
                 .then(function(response){
                     console.log(response);
                     alert(response.data.msg);
+                    $(".ui.modal").modal("hide");
                 })
-                .catch(function(error){console.log(error)});
+                .catch(function(error){
+                    console.log(error);
+                    alert(error);
+                    $(".ui.modal").modal("hide");
+                });
         } 
     }
 });

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.db.models import Count
 from admin.views.base import BaseView
-from admin.models import ArticleModel,TagModel,CategoryModel
+from admin.models import ArticleModel,TagModel,CategoryModel,VisitorModel,VisitedRecordModel
 
 class Overview(BaseView):
     """总览"""
@@ -28,6 +28,12 @@ class Overview(BaseView):
                 'show_categories_num':categories.filter(show=True).count(),
                 'latest_category':categories.order_by("-add_time")[0],
                 'most_articles_category':categories.annotate(related_articles_num=Count('article')).order_by("-related_articles_num")[0]
+            }
+            self.context['visitors'] = {
+                'count':VisitorModel.objects.count(),
+                'latest_visitor':VisitedRecordModel.objects.order_by("-visited_time")[0].visitor,
+                'newest_visitor':VisitorModel.objects.order_by("-add_time")[0],
+                'most_visited_visitor':VisitedRecordModel.objects.annotate(visitor_visited_num=Count("visitor")).order_by("-visitor_visited_num")[0].visitor
             }
         except Exception as e:
             print(e)

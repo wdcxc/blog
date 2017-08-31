@@ -18,9 +18,10 @@
         </a>
         {% endfor %}
     </div>
-    <div class="ui raised segment items" id="articles_cards">
+    <div class="ui divider"></div>
+    <div class="ui one raised cards" id="articles_cards">
         {% for article in articles %}
-        <div class="item">
+        <div class="card">
             <a class="content" href="/app/article?id={{ article.id }}">
                 <div class="header">
                     <h1 class="ui header">{{ article.title }}</h1>

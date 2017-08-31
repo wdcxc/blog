@@ -1,9 +1,11 @@
 var csrftoken = Cookies.get("csrftoken");
+$(".markdown-body").css("z-index",1);
 
 var articlesTable = new Vue({
     el:'#articlesTable',
     methods:{
         deleteArticle:function(id){
+            $(".ui.modal").modal("show");
             axios({
                     method:"POST",
                     url:"/admin/article/delete",
@@ -11,16 +13,17 @@ var articlesTable = new Vue({
                     data:Qs.stringify({id:id})
                 })
                 .then(function(response){
-                    alert(response.data.msg);
                     console.log(response);
+                    alert(response.data.msg);
                     location.reload();
                 })
                 .catch(function(error){
-                    alert(error);
                     console.log(error);
+                    alert(error);
                 });
         },
         openToPublic:function(id,open){
+            $(".ui.modal").modal("show");
             axios({
                     method:"POST",
                     url:"/admin/article/open_to_public",
@@ -31,11 +34,14 @@ var articlesTable = new Vue({
                     alert(response.data.msg);
                     if(response.data.code==200){
                         location.reload();
+                    }else{
+                        $(".ui.modal").modal("hide");
                     }    
                 })
                 .catch(function(error){
-                    alert(error);
                     console.log(error);
+                    alert(error);
+                    $(".ui.modal").modal("show");
                 });
         },
         previousPage:function(page){

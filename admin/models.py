@@ -68,3 +68,23 @@ class ArticleModel(models.Model):
     class Meta:
         db_table = "articles"
 
+class VisitorModel(models.Model):
+    """ 访客模型 """
+
+    name = models.CharField(max_length=50,default="anony") # 访客名字
+    IP = models.GenericIPAddressField() # 访客 IP 地址
+    add_time = models.DateTimeField(auto_now_add=True) # 访客第一次访问时间
+    forbidden_visit = models.BooleanField(default=False) # 是否禁止访问
+
+    class meta:
+        db_table="visitors"
+
+class VisitedRecordModel(models.Model):
+    """ 访客访问记录模型 """
+    
+    visitor = models.ForeignKey(VisitorModel,on_delete=models.CASCADE) # 访客
+    article = models.ForeignKey(ArticleModel,on_delete=models.CASCADE) # 访问文章
+    visited_time = models.DateTimeField(auto_now_add=True) # 访问时间
+
+    class meta:
+        db_table = "visited_records"

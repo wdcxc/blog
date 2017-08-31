@@ -2,38 +2,93 @@
 {% load static %}
 
 {% block rightside %}
-<div class="ui three stackable cards">
-    <div class="ui raised card">
+<div class="ui raised two stackable cards">
+    <div class="ui card">
         <div class="content">
             <div class="header">文章总览</div>
+            <div class="meta"><div class="ui divider"></div></div>
             <div class="description">
-                <p>文章总数：{{ articles.count }}</p>
-                <p>公开文章数：{{ articles.open_articles_num }}</p>
-                <p>最新文章：&lt&lt{{ articles.latest_article.title }}&gt&gt</p>
-                <p>最火文章：&lt&lt{{ articles.hotest_article.title }}&gt&gt</p>
-            </div> 
+                <div class="ui divided items">
+                    <div class="item">
+                        <p>文章总数：<span class="ui basic label">{{ articles.count }}</span></p>
+                    </div>
+                    <div class="item">
+                        <p>公开文章数：<span class="ui basic label">{{ articles.open_articles_num }}</span></p>
+                    </div>
+                    <div class="item">
+                        <p>最新文章：<span class="ui basic label">{{ articles.latest_article.title }}</span></p>
+                    </div>
+                    <div class="item">
+                        <p>最火文章：<span class="ui basic label">{{ articles.hotest_article.title }}</span></p>
+                    </div>
+                </div> 
+            </div>
         </div>
     </div>
-    <div class="ui raised card">
+    <div class="ui card">
         <div class="content">
             <div class="header">类别总览</div>
+            <div class="meta"><div class="ui divider"></div></div>
             <div class="description">
-                <p>类别总数：{{ categories.count }}</p>
-                <p>显示类别数：{{ categories.show_categories_num }}</p>
-                <p>关联最多文章类别：{{ categories.most_articles_category.name }}</p>
-                <p>最新类别：{{ categories.latest_category.name }}
-            </div> 
+                <div class="ui divided items">
+                    <div class="item">
+                        <p>类别总数：<span class="ui basic label">{{ categories.count }}</span></p>
+                    </div>
+                    <div class="item">
+                        <p>显示类别数：<span class="ui basic label">{{ categories.show_categories_num }}</span></p>
+                    </div>
+                    <div class="item">
+                        <p>关联最多文章类别：<span class="ui teal basic label">{{ categories.most_articles_category.name }}<//span></p>
+                    </div>
+                    <div class="item">
+                        <p>最新类别：<span class="ui teal basic label">{{ categories.latest_category.name }}</span></p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="ui raised card">
+    <div class="ui card">
         <div class="content">
             <div class="header">标签总览</div>
+            <div class="meta"><div class="ui divider"></div></div>
             <div class="description">
-                <p>标签总数：{{ tags.count }}</p>
-                <p>显示标签数：{{ tags.show_tags_num }}</p>
-                <p>关联最多文章标签：{{ tags.most_articles_tag.name }}</p>
-                <p>最新标签：{{ tags.latest_tag.name }}
-            </div> 
+                <div class="ui divided items">
+                    <div class="item">
+                        <p>标签总数：<span class="ui basic label">{{ tags.count }}</span></p>
+                    </div>
+                    <div class="item">
+                        <p>显示标签数：<span class="ui basic label">{{ tags.show_tags_num }}</span></p>
+                    </div>
+                    <div class="item">
+                        <p>关联最多文章标签：<span class="ui teal tag label">{{ tags.most_articles_tag.name }}</span></p>
+                    </div>
+                    <div class="item">
+                        <p>最新标签：<span class="ui teal tag label">{{ tags.latest_tag.name }}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui card">
+        <div class="content">
+            <div class="header">访客总览</div>
+            <div class="meta"><div class="ui divider"></div></div>
+            <div class="description">
+                <div class="ui divided items">
+                    <div class="item">
+                        <p>访客总数：<span class="ui basic label">{{ visitors.count }}</span></p>
+                    </div>
+                    <div class="item">
+                        <p>访问次数最多访客：<span class="ui basic label">{{ visitors.most_visited_visitor.name }}({{ visitors.most_visited_visitor.IP }})</span></p>
+                    </div>
+                    <div class="item">
+                        <p>最新访客：<span class="ui basic label">{{ visitors.newest_visitor.name }}({{ visitors.newest_visitor.IP }})</span></p>
+                    </div>
+                    <div class="item">
+                        <p>最近访客：<span class="ui basic label">{{ visitors.latest_visitor.name }}({{ visitors.latest_visitor.IP }})</span></p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -10,6 +10,11 @@
     {% csrf_token %}
     <mavon-editor v-model="value" @save="$save"/>
 </div>
+<div class="ui basic modal">
+    <div class="ui header">
+        <div class="ui text loader">保存文章 ing ...</div>
+    </div>
+</div>
 {% endblock %}
 
 {% block js %}
