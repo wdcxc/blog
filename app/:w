@@ -103,7 +103,7 @@ def movie(request):
     return render(request,'app/movie.html',context)
 
 def add_comment(request):
-    """新增评论"""
+    """新增文章评论"""
 
     input = {}
     input['article_id'] = request.POST.get("article_id")
@@ -113,16 +113,11 @@ def add_comment(request):
     visitor = VisitorModel.objects.get(id=input['visitor_id'])
     comment = CommentModel(content=input['comment_content'],visitor=visitor)
     if input['article_id']:
-        comment.save()
         article = ArticleModel.objects.get(id=input['article_id'])
         article.comments.add(comment)
     if input['comment_id']:
         replied_comment = CommentModel.objects.get(id=input['comment_id'])
-        comment.grade = replied_comment.grade + 1
-        comment.save()
         replied_comment.reply_comments.add(comment)
-        article = replied_comment.article 
-        article.comments.add(comment)
     return JsonResponse({'code':200,'msg':'发表评论成功','data':{'comment_id':comment.id}})
 
 def get_comment(request):

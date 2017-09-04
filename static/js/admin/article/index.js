@@ -44,6 +44,28 @@ var articlesTable = new Vue({
                     $(".ui.modal").modal("show");
                 });
         },
+        allowComment:function(id,allow){
+            $(".ui.modal").modal("show");
+            axios({
+                    method:"POST",
+                    url:"/admin/article/allow_comment",
+                    headers:{"X-CSRFToken":csrftoken,"X-Requested-With":"XMLHttpRequest","Content-Type":"application/x-www-form-urlencoded"},
+                    data:Qs.stringify({id:id,allow:allow})
+                })
+                .then(function(response){
+                    alert(response.data.msg);
+                    if(response.data.code==200){
+                        location.reload();
+                    }else{
+                        $(".ui.modal").modal("hide");
+                    }    
+                })
+                .catch(function(error){
+                    console.log(error);
+                    alert(error);
+                    $(".ui.modal").modal("show");
+                });
+        },
         previousPage:function(page){
             if(location.href.indexOf("?")!=-1){
                 if(location.href.indexOf("page")!=-1){

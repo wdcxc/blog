@@ -50,6 +50,19 @@ class DateArchiveModel(models.Model):
     class Meta:
         db_table="date_archive"
 
+class  CommentModel(models.Model):
+    """文章评论模型类"""
+
+    content = models.TextField() # 评论内容
+    add_time = models.DateTimeField(auto_now_add=True) # 评论时间
+    reply_comments = models.ManyToManyField('self',related_name="replied_comments",related_query_name="replied_comment",symmetrical=False) # 回复评论
+    article = models.ForeignKey('ArticleModel',on_delete=models.CASCADE,related_name="comments",related_query_name="comment",null=True,blank=True) # 评论所属文章
+    visitor = models.ForeignKey('VisitorModel',on_delete=models.CASCADE,related_name="comments",related_query_name="comment") # 评论者
+    grade = models.IntegerField(default=0) # 评论等级，直接回复文章等级为0，等级越大代表回复嵌套层次越深
+
+    class Meta:
+        db_table = "comments"
+
 class ArticleModel(models.Model):
     """文章模型类"""
 
@@ -64,6 +77,7 @@ class ArticleModel(models.Model):
     categories = models.ManyToManyField(CategoryModel,related_name="articles",related_query_name="article") # 文章类别
     read_num = models.IntegerField(default=0) # 文章阅读次数
     date_archives = models.ManyToManyField(DateArchiveModel,related_name="articles",related_query_name="article") # 文章日期归档
+    allow_comment = models.BooleanField(default=False) # 是否允许评论
 
     class Meta:
         db_table = "articles"
@@ -75,6 +89,7 @@ class VisitorModel(models.Model):
     IP = models.GenericIPAddressField() # 访客 IP 地址
     add_time = models.DateTimeField(auto_now_add=True) # 访客第一次访问时间
     forbidden_visit = models.BooleanField(default=False) # 是否禁止访问
+    avatar_url = models.URLField(default="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1667998903,1616440854&fm=27&gp=0.jpg") # 头像链接地址
 
     class meta:
         db_table="visitors"

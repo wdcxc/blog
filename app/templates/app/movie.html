@@ -1,0 +1,27 @@
+{% extends 'app/appbase.html' %}
+{% load static %}
+
+{% block title %}电影资源分享{% endblock %}
+
+{% block leftside %}
+<div class="ui search" id="search">
+    <div class="ui right icon input">
+        <input type="text" placeholder="请输入电影名称" v-model="searchName"/>
+        <i class="circular search link icon" @click="doSearch"></i>
+    </div>
+</div>
+{% endblock %}
+
+{% block rightside %}
+<div class="ui one raised cards">
+    <div class="ui card">
+        <div class="content">
+            <div class="header">最火电影</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/app/movie.js' %}"></script>
+{% endblock %}

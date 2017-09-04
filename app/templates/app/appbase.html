@@ -8,21 +8,7 @@
 {% block body %}
 <div class="ui grid">
     <div class="row">
-        <div class="ui attached stackable menu">
-            <div class="ui container">
-                <div class="header item">
-                    wdcxc's blog
-                </div>
-                <a class="item" href="/app/index">
-                    <i class="home icon"></i> 首页
-                </a>
-                {% for category in categories_in_header %}
-                <a class="item" href="/app/category?id={{ category.id }}">
-                    <i class="coffee icon"></i>{{ category.name }}
-                </a>
-                {% endfor %}
-            </div>
-        </div>
+        {% include 'app/header.html' %}
     </div>
     <div class="row">
         <div class="ui container grid">

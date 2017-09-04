@@ -1,0 +1,18 @@
+<div class="ui attached stackable menu">
+    <div class="ui container">
+        <div class="header item">
+            wdcxc's blog
+        </div>
+        <a class="item" href="/app/index">
+            <i class="home icon"></i> 首页
+        </a>
+        {% for category in categories_in_header %}
+        <a class="item" href="/app/category?id={{ category.id }}">
+            <i class="coffee icon"></i>{{ category.name }}
+        </a>
+        {% endfor %}
+        <a class="item" href="/app/movie">
+            <i class="video play icon"></i>电影资源
+        </a>
+    </div>
+</div>

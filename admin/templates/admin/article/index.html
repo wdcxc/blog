@@ -38,6 +38,7 @@
                     <th>类别</th>
                     <th>标签</th>
                     <th>是否公开</th>
+                    <th>允许评论</th>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -62,6 +63,13 @@
                             <button class="ui {% if article.open_to_public %}teal{% endif %} button" @click="openToPublic({{ article.id }},1)">是</button>
                             <div class="or"></div>
                             <button class="ui {% if not article.open_to_public %}teal{% endif %} button" @click="openToPublic({{ article.id }},0)">否</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="ui small buttons">
+                            <button class="ui {% if article.allow_comment %}teal{% endif %} button" @click="allowComment({{ article.id }},1)">是</button>
+                            <div class="or"></div>
+                            <button class="ui {% if not article.allow_comment %}teal{% endif %} button" @click="allowComment({{ article.id }},0)">否</button>
                         </div>
                     </td>
                     <td>

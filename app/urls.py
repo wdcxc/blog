@@ -22,4 +22,7 @@ urlpatterns = [
     url(r'^tag$',app.tag,name='tag'),
     url(r'^category$',app.category,name='category'),
     url(r'^date_archive$',app.date_archive,name='date_archive'),
+    url(r'^movie$',app.movie,name='movie'),
+    url(r'^add_comment$',app.add_comment,name='add_comment'),
+    url(r'^get_comment$',app.get_comment,name='get_comment'),
 ]

@@ -95,8 +95,20 @@ class Article(BaseView):
         except Exception as e:
             return JsonResponse({'code':400,'msg':'修改失败','data':{'id':input['id'],'open':input['open'],'error':str(e)}})
 
+    def allow_comment(self,request):
+        try:
+            input = {}
+            input['id'] = request.POST.get("id")
+            input['allow'] = request.POST.get("allow")
+            article = ArticleModel.objects.get(id=input['id'])
+            article.allow_comment = input['allow']
+            article.save()
+            return JsonResponse({'code':200,'msg':'修改成功','data':{'id':input['id'],'allow':input['allow']}})
+        except Exception as e:
+            return JsonResponse({'code':400,'msg':'修改失败','data':{'id':input['id'],'allow':input['allow'],'error':str(e)}})
+
 def search_articles(condition,text):
-    """ 搜索文章 """
+    """搜索文章"""
 
     if condition == "title":
         articles = ArticleModel.objects.filter(title__icontains=text)
