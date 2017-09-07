@@ -1,6 +1,5 @@
 {% extends 'app/appbase.html' %}
 {% load static %}
-{% csrf_token %}
 
 {% block leftside %}
 <div class="ui raised segment items">
@@ -32,7 +31,6 @@
 
                 <div class="content" id="content">{{ article.content }}</div>
                 
-
                 <h4 class="ui horizontal divider header">
                     <i class="comments icon"></i>{% if not article.allow_comment %}作者关闭了{% endif %}评论
                 </h4>
@@ -41,8 +39,14 @@
                     <input type="hidden" value={{ article.id }} id="articleId"/>
                     <comment-component v-for="commentid in commentIds" :commentid="commentid" :key="commentid"></comment-component> 
                     <form class="ui reply form">
+                        {% csrf_token %}
                         <div class="field"><textarea v-model="commentContent"></textarea></div>
-                        <div class="ui primary submit labeled icon button" @click="articleComment({{visitor.id}},{{article.id}})"><i class="icon edit"></i>发表评论</div>
+                        <div v-if="submitLoading"> 
+                            <div class="ui loading button" disabled>发表评论</div>
+                        </div>
+                        <div v-else>
+                            <div class="ui primary submit labeled icon button" @click="articleComment({{visitor.id}},{{article.id}})"><i class="icon edit"></i>发表评论</div>
+                        </div>
                     </form>
                 </div>
                 {% endif %}
@@ -52,7 +56,6 @@
     </div>
 </div>
 {% endblock %}
-
 
 {% block js %}
 <script type="text/x-template" id="comment-component">
@@ -67,8 +70,14 @@
                     <a class="reply" @click="showReplyForm">回复</a>
                 </div>
                 <form class="ui reply form" v-show="formShow" >
+                    {% csrf_token %}
                     <div class="field"><textarea v-model="commentContent"></textarea></div>
-                    <div class="ui primary submit labeled icon button" @click="replyComment(commentid,{{visitor.id}})"><i class="icon edit"></i>发表评论</div>
+                    <div v-if="submitLoading"> 
+                        <div class="ui loading button" disabled>发表评论</div>
+                    </div>
+                    <div v-else>
+                        <div class="ui primary submit labeled icon button" @click="replyComment(commentid,{{visitor.id}},{{article.id}})"><i class="icon edit"></i>发表评论</div>
+                    </div>
                 </form>
             </div>
             <comment-component v-if="hasComments" v-for="commentId in commentIds" :commentid="commentId" :key="commentid"></comment-component> 

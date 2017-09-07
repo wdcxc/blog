@@ -11,6 +11,7 @@ Vue.component('comment-component',{
             comment:{},
             visitor:{},
             commentIds:[],
+            submitLoading:false,
         }
     },
     computed:{
@@ -64,6 +65,7 @@ Vue.component('comment-component',{
         },
         replyComment:function(commentId,visitorId,articleId){
             var that = this;
+            this.submitLoading=true;
             axios({
                     url:'/app/add_comment',
                     method:'post',
@@ -73,6 +75,7 @@ Vue.component('comment-component',{
             .then(function(response){
                 console.log(response);
                 alert(response.data.msg);
+                that.submitLoading=false;
                 if(response.data.code == 200){ 
                     that.commentIds.unshift(response.data.data.comment_id); 
                     that.commentContent = '';
@@ -80,6 +83,7 @@ Vue.component('comment-component',{
                 }
             })
             .catch(function(error){
+                that.submitLoading=false;
                 console.log(error);
             })
         }
@@ -92,6 +96,7 @@ var comments = new Vue({
         commentContent:'', 
         commentIds:[],
         articleId:$("#articleId").val(),
+        submitLoading:false,
     },
     mounted:function(){
         var that = this;
@@ -114,6 +119,7 @@ var comments = new Vue({
     methods:{
         articleComment:function(visitorId,articleId){
             var that = this;
+            this.submitLoading=true;
             axios({
                     url:'/app/add_comment',
                     method:'post',
@@ -123,12 +129,14 @@ var comments = new Vue({
             .then(function(response){
                 console.log(response);
                 alert(response.data.msg);
+                that.submitLoading=false;
                 if(response.data.code == 200){ 
                     that.commentIds.unshift(response.data.data.comment_id); 
                     that.commentContent = '';
                 }
             })
             .catch(function(error){
+                that.submitLoading=false;
                 console.log(error);
             })
         }
